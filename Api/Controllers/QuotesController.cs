@@ -18,9 +18,13 @@ public class QuotesController : ControllerBase
 
     [HttpGet]
     [Route("random")]
-    public async Task<GetQuoteDto> GetRandomQuotes()
+    public async Task<ActionResult<GetQuoteDto>> GetRandomQuotes()
     {
-        return (await quotesService.GetRandomQuote()).AsGetQuoteDto();
+        var quote = await quotesService.GetRandomQuote();
+        if (quote == null)
+            return NoContent();
+        
+        return quote.AsGetQuoteDto();
     }
 
     [HttpGet]

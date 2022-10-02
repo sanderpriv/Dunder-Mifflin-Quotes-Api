@@ -1,27 +1,33 @@
-﻿using Api.Entities;
+﻿using Api.DB;
+using Api.Entities;
 
 namespace Api.Services.Impl;
 
 public class QuotesService : IQuotesService
 {
-    private readonly List<Quote> quotes;
+    private readonly IQuotesRepository quotesRepository;
     private readonly Random random = new();
 
-    public QuotesService(List<Quote> quotes)
+    public QuotesService(IQuotesRepository quotesRepository)
     {
-        this.quotes = quotes;
+        this.quotesRepository = quotesRepository;
     }
 
-    public Task<IEnumerable<Quote>> GetQuotes(int size)
+    public async Task<IEnumerable<Quote>> GetQuotes(int size)
     {
-        var result = quotes.OrderBy(x => Guid.NewGuid()).Take(size);
-        return Task.FromResult(result);
+        var quotes = await quotesRepository.GetAll();
+        var result = quotes.OrderBy(_ => Guid.NewGuid()).Take(size);
+        return result;
     }
 
-    public Task<Quote> GetRandomQuote()
+    public async Task<Quote?> GetRandomQuote()
     {
+        var quotes = (await quotesRepository.GetAll()).ToList();
+        if (quotes.Count == 0)
+            return null;
+        
         var ran = random.Next(0, quotes.Count);
         var result = quotes[ran];
-        return Task.FromResult(result);
+        return result;
     }
 }

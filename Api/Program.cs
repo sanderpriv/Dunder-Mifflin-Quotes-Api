@@ -1,13 +1,9 @@
-using System.Globalization;
-using System.Reflection;
-using CsvHelper;
-using CsvHelper.Configuration;
-using Api.Entities;
+using Api.DB;
+using Api.DB.Impl;
 using Api.Services;
 using Api.Services.Impl;
+using Api.Utils;
 using Microsoft.OpenApi.Models;
-
-const string filename = "the-office-lines.csv";
 
 Run();
 
@@ -36,17 +32,8 @@ void AddServices(WebApplicationBuilder builder)
             });
     });
     
-    
-    var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-    {
-        PrepareHeaderForMatch = args => args.Header.Replace("_", "").ToLower(),
-    };
-    var stream = GetCsvFileStreamReader(filename);
-    using var reader = new StreamReader(stream);
-    using var csv = new CsvReader(reader, config);
-    var records = csv.GetRecords<Quote>();
-    var quotes = records.ToList();
-    builder.Services.AddSingleton<IQuotesService>(_ => new QuotesService(quotes));
+    builder.Services.AddSingleton<IQuotesService, QuotesService>();
+    builder.Services.AddSingleton<IQuotesRepository, SqLiteQuotesRepository>();
 }
 
 void AddConfiguration(WebApplication app)
@@ -62,17 +49,5 @@ void AddConfiguration(WebApplication app)
     app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
-}
-
-
-static Stream GetCsvFileStreamReader(string filename)
-{
-    var path = $"Api.Data.{filename}";
-    var assembly = Assembly.GetAssembly(typeof(Program));
-    var stream = assembly.GetManifestResourceStream(path);
-
-    if (stream is null)
-        throw new InvalidOperationException("Cant read " + assembly.FullName);
-
-    return stream;
+    app.Services.WarmUp();
 }
