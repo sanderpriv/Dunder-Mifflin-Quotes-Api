@@ -17,7 +17,7 @@ public class QuotesController : ControllerBase
     }
 
     [HttpGet]
-    [Route("random")]
+    [Route("")]
     public async Task<ActionResult<GetQuoteDto>> GetRandomQuotes()
     {
         var quote = await quotesService.GetRandomQuote();
