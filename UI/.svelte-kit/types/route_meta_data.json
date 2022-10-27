@@ -4,14 +4,5 @@
 	],
 	"about": [
 		"src/routes/about/+page.ts"
-	],
-	"sverdle": [
-		"src/routes/sverdle/+page.server.ts"
-	],
-	"sverdle/how-to-play": [
-		"src/routes/sverdle/how-to-play/+page.ts"
-	],
-	"home": [
-		"src/routes/home/+page.ts"
 	]
 }
