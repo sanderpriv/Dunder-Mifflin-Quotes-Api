@@ -1,15 +1,36 @@
+<script>
+	import Quote from "../components/Quote.svelte";
+	import mockDataQuote from "../mockdata/quote.json";
+
+	let showQuote = false;
+	function getQuote() {
+		showQuote = true;
+	}
+</script>
+
 <svelte:head>
 	<title>Dunder Mifflin Quotes</title>
 	<meta name="description" content="Website for generating random quotes from The Office" />
 </svelte:head>
 
-<section>
-	<button>Get quote</button>
+<section class="{showQuote ? 'home--show-quote' : 'home'}">
+	<button on:click={getQuote}>Get quote</button>
+
+	{#if (showQuote)}
+		<Quote quote="{mockDataQuote}" />
+	{/if}
 </section>
 
 <style>
+	.home {
+		margin-block: 4rem;
+	}
+
+	.home--show-quote {
+		margin-block: 4rem;
+	}
+
 	section {
-		margin-block: 8rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
