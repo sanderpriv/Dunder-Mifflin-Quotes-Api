@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("quotes")]
 public class QuotesController : ControllerBase
 {
 
@@ -17,8 +16,8 @@ public class QuotesController : ControllerBase
     }
 
     [HttpGet]
-    [Route("")]
-    public async Task<ActionResult<GetQuoteDto>> GetRandomQuotes()
+    [Route("quote")]
+    public async Task<ActionResult<GetQuoteDto>> GetRandomQuote()
     {
         var quote = await quotesService.GetRandomQuote();
         if (quote == null)
@@ -28,7 +27,7 @@ public class QuotesController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{size:int}")]
+    [Route("quotes")]
     public async Task<IEnumerable<GetQuoteDto>> GetQuotes(int size)
     {
         return (await quotesService.GetQuotes(size)).AsGetQuoteDtos();
