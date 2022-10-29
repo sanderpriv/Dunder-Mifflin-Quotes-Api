@@ -1,7 +1,7 @@
 <script>
-	import {draw} from 'svelte/transition';
+    import {draw} from 'svelte/transition';
 
-	let showLogo = false;
+    let showLogo = false;
 	setTimeout(() => showLogo = true)
 </script>
 

@@ -4,9 +4,9 @@
 </svelte:head>
 
 <script>
-	import {fade} from 'svelte/transition';
+    import {fade} from 'svelte/transition';
 
-	let showLogo = false;
+    let showLogo = false;
 	setTimeout(() => showLogo = true, 1500)
 </script>
 
