@@ -1,9 +1,15 @@
 <script>
 	import Quote from "../components/Quote.svelte";
-	import mockDataQuote from "../mockdata/quote.json";
 
 	let showQuote = false;
-	function getQuote() {
+	let loading = false;
+	let quote;
+
+	async function fetchQuote() {
+		let endpoint = "http://localhost:5104/quote";
+		const response = await fetch(endpoint);
+		quote = await response.json();
+		loading = false;
 		showQuote = true;
 	}
 </script>
@@ -14,10 +20,16 @@
 </svelte:head>
 
 <section class="{showQuote ? 'home--show-quote' : 'home'}">
-	<button on:click={getQuote}>Get quote</button>
+	<button on:click={fetchQuote}>Get quote</button>
+
+	{#if (loading)}
+		<div class="loading">
+			Loading...
+		</div>
+	{/if}
 
 	{#if (showQuote)}
-		<Quote quote="{mockDataQuote}" />
+		<Quote quote={quote} />
 	{/if}
 </section>
 
@@ -28,6 +40,10 @@
 
 	.home--show-quote {
 		margin-block: 4rem;
+	}
+
+	.loading {
+		margin-top: 4rem;
 	}
 
 	section {

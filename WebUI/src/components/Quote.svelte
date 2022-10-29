@@ -2,31 +2,17 @@
     import {fade} from 'svelte/transition';
 
     export let quote;
-    let speaker = quote?.speaker;
-    let season = quote?.season;
-    let episode = quote?.episode;
-
-    let showQuote = false;
-    setTimeout(() => showQuote = true, 1000)
 </script>
 
-{#if (!showQuote)}
-    <div class="loading">
-        Loading...
-    </div>
-{:else}
-    <div class="quote" transition:fade>
-        <b>"{quote.lineText}"</b>
-        <img src="src/lib/images/cast/{speaker}.jpg" alt="Portrait of {speaker} from The Office"/>
-        <span>- {speaker}</span>
-        <span>Season {season} Episode {episode}</span>
-    </div>
-{/if}
+
+<div class="quote" transition:fade>
+    <b>"{quote.lineText}"</b>
+    <img src="src/lib/images/cast/{quote.speaker}.jpg" alt="Portrait of {quote.speaker} from The Office"/>
+    <span>- {quote.speaker}</span>
+    <span>Season {quote.season} Episode {quote.episode}</span>
+</div>
 
 <style>
-    .loading {
-        margin-block: 4rem;
-    }
 
     .quote {
         margin-block: 4rem;
