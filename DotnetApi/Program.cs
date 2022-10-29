@@ -1,8 +1,8 @@
-using Api.DB;
-using Api.DB.Impl;
-using Api.Services;
-using Api.Services.Impl;
-using Api.Utils;
+using DotnetApi.DB;
+using DotnetApi.DB.Impl;
+using DotnetApi.Services;
+using DotnetApi.Services.Impl;
+using DotnetApi.Utils;
 using Microsoft.OpenApi.Models;
 
 Run();

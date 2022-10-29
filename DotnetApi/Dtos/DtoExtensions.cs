@@ -1,6 +1,6 @@
-﻿using Api.Entities;
+﻿using DotnetApi.Entities;
 
-namespace Api.Dtos;
+namespace DotnetApi.Dtos;
 
 public static class DtoExtensions
 {

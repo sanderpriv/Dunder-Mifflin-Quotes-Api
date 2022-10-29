@@ -1,8 +1,8 @@
-﻿using Api.Dtos;
-using Api.Services;
+﻿using DotnetApi.Dtos;
+using DotnetApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace DotnetApi.Controllers;
 
 [ApiController]
 public class QuotesController : ControllerBase
@@ -28,7 +28,7 @@ public class QuotesController : ControllerBase
 
     [HttpGet]
     [Route("quotes")]
-    public async Task<IEnumerable<GetQuoteDto>> GetQuotes(int size)
+    public async Task<IEnumerable<GetQuoteDto>> GetQuotes(int size = 10)
     {
         return (await quotesService.GetQuotes(size)).AsGetQuoteDtos();
     }

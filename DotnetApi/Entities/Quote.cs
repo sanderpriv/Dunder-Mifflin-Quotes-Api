@@ -1,4 +1,4 @@
-﻿namespace Api.Entities;
+﻿namespace DotnetApi.Entities;
 
 public class Quote
 {

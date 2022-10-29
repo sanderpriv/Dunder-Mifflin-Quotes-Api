@@ -1,7 +1,7 @@
-﻿using Api.DB;
-using Api.Entities;
+﻿using DotnetApi.DB;
+using DotnetApi.Entities;
 
-namespace Api.Services.Impl;
+namespace DotnetApi.Services.Impl;
 
 public class QuotesService : IQuotesService
 {

@@ -1,6 +1,6 @@
-﻿using Api.Entities;
+﻿using DotnetApi.Entities;
 
-namespace Api.Services;
+namespace DotnetApi.Services;
 
 public interface IQuotesService
 {

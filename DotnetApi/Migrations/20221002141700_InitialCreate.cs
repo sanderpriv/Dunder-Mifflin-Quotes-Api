@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Api.Migrations
+namespace DotnetApi.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

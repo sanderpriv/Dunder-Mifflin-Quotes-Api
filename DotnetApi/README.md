@@ -7,10 +7,10 @@
 ## Endpoints
 All endpoints are GETs.
 
-| Endpoint | Description                          | Parameters |
-|----------|--------------------------------------|------------|
-| /        | Random quote from The Office         |            |
-| /{size}  | Set of random quotes from The Office | size: int  |
+| Endpoint           | Description                          | Parameters |
+|--------------------|--------------------------------------|------------|
+| quote              | Random quote from The Office         |            |
+| quotes?size={size} | Set of random quotes from The Office | size: int  |
 
 
 ## Building and running locally

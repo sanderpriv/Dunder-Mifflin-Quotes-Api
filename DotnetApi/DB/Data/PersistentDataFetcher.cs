@@ -1,10 +1,10 @@
 ﻿using System.Globalization;
 using System.Reflection;
-using Api.Entities;
 using CsvHelper;
 using CsvHelper.Configuration;
+using DotnetApi.Entities;
 
-namespace Api.DB.Data;
+namespace DotnetApi.DB.Data;
 
 public static class PersistentDataFetcher
 {

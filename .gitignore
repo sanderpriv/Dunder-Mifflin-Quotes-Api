@@ -4,6 +4,6 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 
-/Api/quotes.db
-/Api/quotes.db-shm
-/Api/quotes.db-wal
+/DotnetApi/quotes.db
+/DotnetApi/quotes.db-shm
+/DotnetApi/quotes.db-wal

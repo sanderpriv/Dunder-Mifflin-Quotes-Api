@@ -1,6 +1,6 @@
-﻿using Api.DB;
+﻿using DotnetApi.DB;
 
-namespace Api.Utils;
+namespace DotnetApi.Utils;
 
 public static class WarmUpExtensions
 {

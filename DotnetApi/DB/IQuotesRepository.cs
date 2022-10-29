@@ -1,6 +1,6 @@
-﻿using Api.Entities;
+﻿using DotnetApi.Entities;
 
-namespace Api.DB;
+namespace DotnetApi.DB;
 
 public interface IQuotesRepository
 {
