@@ -7,6 +7,7 @@ namespace DotnetApi.DB;
 public class QuotesContext : DbContext
 {
     public DbSet<Quote> Quotes { get; set; }
+    public DbSet<Character> Characters { get; set; }
     public string DbPath { get; }
 
     public QuotesContext()

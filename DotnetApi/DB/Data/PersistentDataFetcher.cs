@@ -71,4 +71,19 @@ public static class PersistentDataFetcher
 
         return stream;
     }
+
+    public static IEnumerable<Character> GetCharactersFromCsvFile()
+    {
+        var quotes = GetQuotesFromCsvFile();
+        var characters = new List<Character>();
+
+        foreach (var quote in quotes)
+        {
+            var characterName = quote.Speaker;
+            if (!characters.Select(s => s.Name).Contains(characterName))
+                characters.Add(new Character(characterName));
+        }
+        
+        return characters;
+    }
 }

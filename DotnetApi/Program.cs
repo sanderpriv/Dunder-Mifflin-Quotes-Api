@@ -34,6 +34,9 @@ void AddServices(WebApplicationBuilder builder)
     
     builder.Services.AddSingleton<IQuotesService, QuotesService>();
     builder.Services.AddSingleton<IQuotesRepository, SqLiteQuotesRepository>();
+    
+    builder.Services.AddSingleton<ICharactersService, CharactersService>();
+    builder.Services.AddSingleton<ICharactersRepository, SqLiteCharactersRepository>();
 }
 
 void AddConfiguration(WebApplication app)

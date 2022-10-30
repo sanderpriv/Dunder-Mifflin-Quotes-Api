@@ -13,4 +13,14 @@ public static class DtoExtensions
     {
         return quotes.Select(q => q.AsGetQuoteDto());
     }
+    
+    public static GetCharacterDto AsGetCharacterDto(this Character c)
+    {
+        return new GetCharacterDto(c.Name, c.DisplayName);
+    }
+
+    public static IEnumerable<GetCharacterDto> AsGetCharacterDtos(this IEnumerable<Character> characters)
+    {
+        return characters.Select(q => q.AsGetCharacterDto());
+    }
 }

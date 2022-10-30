@@ -7,5 +7,6 @@ public static class WarmUpExtensions
     public static void WarmUp(this IServiceProvider app)
     {
         app.GetService<IQuotesRepository>()?.WarmUp();
+        app.GetService<ICharactersRepository>()?.WarmUp();
     }
 }
