@@ -1,14 +1,14 @@
 <script>
 	import Quote from "../components/Quote.svelte";
+	import {fetchRandomQuoteFromApi} from "../api/ApiRepository.ts";
 
 	let showQuote = false;
 	let loading = false;
 	let quote;
 
 	async function fetchQuote() {
-		let endpoint = "http://localhost:5104/quote";
-		const response = await fetch(endpoint);
-		quote = await response.json();
+		loading = true;
+		quote = await fetchRandomQuoteFromApi();
 		loading = false;
 		showQuote = true;
 	}
@@ -26,25 +26,12 @@
 		<div class="loading">
 			Loading...
 		</div>
-	{/if}
-
-	{#if (showQuote)}
+	{:else if (showQuote)}
 		<Quote quote={quote} />
 	{/if}
 </section>
 
 <style>
-	.home {
-		margin-block: 4rem;
-	}
-
-	.home--show-quote {
-		margin-block: 4rem;
-	}
-
-	.loading {
-		margin-top: 4rem;
-	}
 
 	section {
 		display: flex;
@@ -62,7 +49,7 @@
 
 		background-color: var(--color-theme-1);
 		box-shadow: 0.125rem 0.125rem 1rem 0 rgba(0, 0, 0, 0.25);
-		transition: 0.5s;
+		transition: 0.3s;
 	}
 
 	button:hover {
@@ -72,7 +59,19 @@
 	}
 
 	button:active {
-		 transform: translateY(1rem);
-	 }
+		background-color: var(--color-theme-1);
+	}
+
+	.home {
+		margin-block: 4rem;
+	}
+
+	.home--show-quote {
+		margin-block: 4rem;
+	}
+
+	.loading {
+		margin-top: 4rem;
+	}
 
 </style>

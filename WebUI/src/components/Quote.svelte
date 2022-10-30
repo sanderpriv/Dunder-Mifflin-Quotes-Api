@@ -5,7 +5,7 @@
 </script>
 
 
-<div class="quote" transition:fade>
+<div class="quote" in:fade>
     <b>"{quote.lineText}"</b>
     <img src="src/lib/images/cast/{quote.speaker}.jpg" alt="Portrait of {quote.speaker} from The Office"/>
     <span>- {quote.speaker}</span>
