@@ -37,6 +37,9 @@ void AddServices(WebApplicationBuilder builder)
     
     builder.Services.AddSingleton<ICharactersService, CharactersService>();
     builder.Services.AddSingleton<ICharactersRepository, SqLiteCharactersRepository>();
+    
+    builder.Services.AddSingleton<IRedditService, RedditService>();
+    builder.Services.AddSingleton<IMatchingService, MatchingService>();
 }
 
 void AddConfiguration(WebApplication app)

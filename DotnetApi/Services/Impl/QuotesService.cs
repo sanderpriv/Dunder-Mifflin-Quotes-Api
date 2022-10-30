@@ -20,6 +20,11 @@ public class QuotesService : IQuotesService
         return result;
     }
 
+    public async Task<IEnumerable<Quote>> GetAllQuotes()
+    {
+        return await quotesRepository.GetAll();
+    }
+
     public async Task<Quote?> GetRandomQuote()
     {
         var quotes = (await quotesRepository.GetAll()).ToList();
