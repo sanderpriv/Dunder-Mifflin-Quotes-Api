@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DotnetApi.Migrations
 {
-    [DbContext(typeof(QuotesContext))]
+    [DbContext(typeof(Database))]
     [Migration("20221030143125_AddCharacters")]
     partial class AddCharacters
     {

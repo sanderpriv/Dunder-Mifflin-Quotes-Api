@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotnetApi.DB;
 
-public class QuotesContext : DbContext
+public class Database : DbContext
 {
     public DbSet<Quote> Quotes { get; set; }
     public DbSet<Character> Characters { get; set; }
     public string DbPath { get; }
 
-    public QuotesContext()
+    public Database()
     {
         DbPath = PersistentDataFetcher.k_SqLiteDbSetFilename;
     }

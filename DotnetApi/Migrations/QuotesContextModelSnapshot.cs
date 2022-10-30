@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DotnetApi.Migrations
 {
-    [DbContext(typeof(QuotesContext))]
+    [DbContext(typeof(Database))]
     partial class QuotesContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
