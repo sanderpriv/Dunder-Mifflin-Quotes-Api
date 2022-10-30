@@ -19,7 +19,7 @@
 	<meta name="description" content="Website for generating random quotes from The Office" />
 </svelte:head>
 
-<section class="{showQuote ? 'home--show-quote' : 'home'}">
+<section>
 	<button on:click={fetchQuote}>Get quote</button>
 
 	{#if (loading)}
@@ -34,6 +34,7 @@
 <style>
 
 	section {
+		margin-top: 1rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -60,14 +61,6 @@
 
 	button:active {
 		background-color: var(--color-theme-1);
-	}
-
-	.home {
-		margin-block: 4rem;
-	}
-
-	.home--show-quote {
-		margin-block: 4rem;
 	}
 
 	.loading {

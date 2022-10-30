@@ -15,7 +15,7 @@
 <style>
 
     .quote {
-        margin-block: 4rem;
+        margin-top: 4rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -23,12 +23,6 @@
 
     img {
         margin-block: 2rem;
-        height: 100%;
-        width: 100%;
-    }
-
-    img {
-        margin-top: 2rem;
         height: 100%;
         width: 100%;
     }
