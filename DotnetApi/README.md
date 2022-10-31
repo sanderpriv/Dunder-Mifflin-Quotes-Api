@@ -14,6 +14,7 @@ All endpoints are GETs.
 
 
 ## Building and running locally
-To run the application locally you need to install and create a local database-file.  
-Run this command from the directory of the API: ``dotnet ef database update``  
-This will create a ``quotes.db`` file at the root directory of the API. 
+<pre>dotnet ef database update</pre> 
+This will create a ``quotes.db`` file at the root directory of the API.  
+If you get an error about not having dotnet-ef, install it:
+<pre>dotnet tool install --global dotnet-ef</pre>
