@@ -1,7 +1,7 @@
 package no.dunder.mifflin.dundermifflinquotes.service.impl
 
-import no.dunder.mifflin.dundermifflinquotes.db.IResourceService
 import no.dunder.mifflin.dundermifflinquotes.domain.dto.Quote
+import no.dunder.mifflin.dundermifflinquotes.service.IResourceService
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.apache.commons.csv.CSVRecord

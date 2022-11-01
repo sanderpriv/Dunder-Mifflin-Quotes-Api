@@ -1,4 +1,4 @@
-package no.dunder.mifflin.dundermifflinquotes.db
+package no.dunder.mifflin.dundermifflinquotes.service
 
 import no.dunder.mifflin.dundermifflinquotes.domain.dto.Quote
 

@@ -1,8 +1,8 @@
 package no.dunder.mifflin.dundermifflinquotes.db.impl
 
 import no.dunder.mifflin.dundermifflinquotes.db.IQuotesRepository
-import no.dunder.mifflin.dundermifflinquotes.db.IResourceService
 import no.dunder.mifflin.dundermifflinquotes.domain.dto.Quote
+import no.dunder.mifflin.dundermifflinquotes.service.IResourceService
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
