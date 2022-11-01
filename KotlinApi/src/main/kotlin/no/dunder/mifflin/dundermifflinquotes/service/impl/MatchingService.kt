@@ -26,13 +26,15 @@ class MatchingService: IMatchingService {
     }
 
     private fun filter(strings: List<String>): List<String> {
-        val lowercased = strings.map { it.lowercase() }
-        val removedPunctuations= removePunctuations(lowercased)
-        return removedPunctuations
+        return strings.asSequence().toLowerCase().removePunctuations().toList()
     }
 
-    private fun removePunctuations(strings: List<String>): List<String> {
-        return strings.map {
+    private fun Sequence<String>.toLowerCase(): Sequence<String> {
+        return this.map { it.lowercase() }
+    }
+
+    private fun Sequence<String>.removePunctuations(): Sequence<String> {
+        return this.map {
             it
                 .replace(",", "")
                 .replace(".", "")
