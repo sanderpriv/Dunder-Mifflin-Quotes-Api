@@ -18,6 +18,10 @@ class QuotesService(private val quotesRepository: IQuotesRepository) : IQuotesSe
         return quotes.subList(0, size)
     }
 
+    override fun getAllQuotes(): List<Quote> {
+        return quotesRepository.getAll()
+    }
+
     override fun getRandomQuote(): Quote? {
         val quotes = quotesRepository.getAll()
 
