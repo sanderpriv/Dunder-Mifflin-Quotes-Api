@@ -1,8 +1,8 @@
-﻿using DotnetApi.DB.Data;
+﻿using DotnetApi.DB;
 using DotnetApi.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotnetApi.DB.Impl;
+namespace DotnetApi.Repositories.Impl;
 
 public class SqLiteQuotesRepository : IQuotesRepository
 {

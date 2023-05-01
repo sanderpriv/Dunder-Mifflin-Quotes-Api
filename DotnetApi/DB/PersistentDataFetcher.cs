@@ -4,7 +4,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using DotnetApi.Entities;
 
-namespace DotnetApi.DB.Data;
+namespace DotnetApi.DB;
 
 public static class PersistentDataFetcher
 {

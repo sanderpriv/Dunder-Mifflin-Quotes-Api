@@ -1,5 +1,4 @@
-﻿using DotnetApi.DB.Data;
-using DotnetApi.Entities;
+﻿using DotnetApi.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotnetApi.DB;

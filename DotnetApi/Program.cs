@@ -1,5 +1,5 @@
-using DotnetApi.DB;
-using DotnetApi.DB.Impl;
+using DotnetApi.Repositories;
+using DotnetApi.Repositories.Impl;
 using DotnetApi.Services;
 using DotnetApi.Services.Impl;
 using DotnetApi.Utils;
@@ -35,6 +35,7 @@ void AddServices(WebApplicationBuilder builder)
     builder.Services.AddSingleton<IQuotesService, QuotesService>();
     builder.Services.AddSingleton<IQuotesRepository, SqLiteQuotesRepository>();
     
+    builder.Services.AddSingleton<IRedditRepository, RedditRepository>();
     builder.Services.AddSingleton<IRedditService, RedditService>();
     builder.Services.AddSingleton<IMatchingService, MatchingService>();
 }

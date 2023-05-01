@@ -1,49 +1,44 @@
-﻿using DotnetApi.Entities;
+﻿using DotnetApi.Dtos;
+using DotnetApi.Entities;
 
 namespace DotnetApi.Services.Impl;
 
 public class MatchingService : IMatchingService
 {
-    public Dictionary<string, int> GetMatchesOfRedditCommentsAndQuotes(IEnumerable<string> originalComments, IEnumerable<Quote> originalQuotes)
+    public IEnumerable<QuoteWithMatches> GetMatchesOfRedditCommentsAndQuotes(IEnumerable<string> comments, IEnumerable<Quote> quotes)
     {
-        var comments = Filter(originalComments).ToList();
-        var quotes = Filter(originalQuotes.Select(t => t.LineText));
-        
-        var matchesWithId = new Dictionary<string, int>();
+        var commentsWithMoreThanTwoWords = comments.Where(t => t.Split(" ").Length > 2);
+        var filteredComments = commentsWithMoreThanTwoWords.Select(Filter).ToList();
+
+        var quotesWithMatches = new List<QuoteWithMatches>();
 
         foreach (var quote in quotes)
         {
-            if (!comments.Contains(quote)) 
+            var filteredLine = Filter(quote.LineText);
+            if (!filteredComments.Contains(filteredLine)) 
                 continue;
             
-            if (matchesWithId.ContainsKey(quote))
+            if (quotesWithMatches.Select(s => s.Quote.Id).Contains(quote.Id))
             {
-                matchesWithId[quote]++;
+                quotesWithMatches.First(s => s.Quote.Id == quote.Id).Matches++;
             }
             else
             {
-                matchesWithId.Add(quote, 1);
+                quotesWithMatches.Add(new QuoteWithMatches(quote));
             }
         }
 
-        return matchesWithId;
+        return quotesWithMatches;
     }
 
-    private static IEnumerable<string> Filter(IEnumerable<string> strings)
+    private static string Filter(string s)
     {
-        var lowercased = strings.Select(s => s.ToLowerInvariant());
-        var removePunctuations = RemovePunctuations(lowercased);
-        return removePunctuations;
-    }
-
-    private static IEnumerable<string> RemovePunctuations(IEnumerable<string> strings)
-    {
-        return strings.Select(s => s
-                .Replace(",", "")
-                .Replace(".", "")
-                .Replace("!", "")
-                .Replace("?", "")
-                .Replace("'", ""))
-            ;
+        return s.ToLowerInvariant()
+            .Replace(" ", "")
+            .Replace(",", "")
+            .Replace(".", "")
+            .Replace("!", "")
+            .Replace("?", "")
+            .Replace("'", "");
     }
 }

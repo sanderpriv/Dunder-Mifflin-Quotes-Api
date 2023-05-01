@@ -1,5 +1,5 @@
-﻿using DotnetApi.DB;
-using DotnetApi.Entities;
+﻿using DotnetApi.Entities;
+using DotnetApi.Repositories;
 
 namespace DotnetApi.Services.Impl;
 

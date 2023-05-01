@@ -1,4 +1,5 @@
-﻿using DotnetApi.Services;
+﻿using DotnetApi.Dtos;
+using DotnetApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetApi.Controllers;
@@ -8,24 +9,34 @@ namespace DotnetApi.Controllers;
 public class RedditQuotesController : ControllerBase
 {
 
-    private readonly IQuotesService quotesService;
-    private readonly IRedditService redditService;
-    private readonly IMatchingService matchingService;
+    private readonly IQuotesService _quotesService;
+    private readonly IRedditService _redditService;
+    private readonly IMatchingService _matchingService;
 
     public RedditQuotesController(IQuotesService quotesService, IRedditService redditService, IMatchingService matchingService)
     {
-        this.quotesService = quotesService;
-        this.redditService = redditService;
-        this.matchingService = matchingService;
+        _quotesService = quotesService;
+        _redditService = redditService;
+        _matchingService = matchingService;
     }
 
     [HttpGet]
-    [Route("")]
-    public async Task<Dictionary<string, int>> GetQuotesFromLast24Hours()
+    [Route("24h")]
+    public async Task<IEnumerable<GetQuoteWithMatchesDto>> GetQuotesWithMatchesFromLast24Hours()
     {
-        var quotes = await quotesService.GetAllQuotes();
-        var redditComments = await redditService.GetCommentsFromLast24Hours();
-        var matches = matchingService.GetMatchesOfRedditCommentsAndQuotes(redditComments, quotes);
-        return matches;
+        var quotes = await _quotesService.GetAllQuotes();
+        var comments = await _redditService.GetCommentsFromLast24Hours();
+        var matches = _matchingService.GetMatchesOfRedditCommentsAndQuotes(comments, quotes);
+        return matches.Select(t => new GetQuoteWithMatchesDto(t.Quote.AsGetQuoteDto(), t.Matches));
+    }
+
+    [HttpGet]
+    [Route("postPermalink")]
+    public async Task<IEnumerable<GetQuoteWithMatchesDto>> GetQuotesFromPostPermalink(string permalink)
+    {
+        var quotes = await _quotesService.GetAllQuotes();
+        var comments = await _redditService.GetCommentsFromPostPermalink("/r/DunderMifflin/comments/12d06js/favourite_oscar_line");
+        var matches = _matchingService.GetMatchesOfRedditCommentsAndQuotes(comments, quotes);
+        return matches.Select(t => new GetQuoteWithMatchesDto(t.Quote.AsGetQuoteDto(), t.Matches));
     }
 }

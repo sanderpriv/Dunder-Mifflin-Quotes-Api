@@ -1,4 +1,4 @@
-﻿using DotnetApi.DB;
+﻿using DotnetApi.Repositories;
 
 namespace DotnetApi.Utils;
 

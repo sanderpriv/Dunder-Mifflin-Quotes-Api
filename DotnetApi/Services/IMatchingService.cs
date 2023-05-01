@@ -4,6 +4,6 @@ namespace DotnetApi.Services;
 
 public interface IMatchingService
 {
-    public Dictionary<string, int> GetMatchesOfRedditCommentsAndQuotes
-        (IEnumerable<string> originalComments, IEnumerable<Quote> originalQuotes);
+    public IEnumerable<QuoteWithMatches> GetMatchesOfRedditCommentsAndQuotes
+        (IEnumerable<string> comments, IEnumerable<Quote> quotes);
 }
