@@ -26,7 +26,7 @@ public class RedditRepository : IRedditRepository
         using HttpClient client = new();
         client.DefaultRequestHeaders.Add("User-Agent", UserAgent);
 
-        var url = $"https://www.reddit.com{permalink}.json?sort=top&limit={CommentsLimit}";
+        var url = $"https://www.reddit.com{permalink}.json?sort=top";
         var stream = await client.GetStreamAsync(url);
         try
         {
