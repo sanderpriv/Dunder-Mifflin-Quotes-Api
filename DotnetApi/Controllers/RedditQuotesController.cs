@@ -27,7 +27,7 @@ public class RedditQuotesController : ControllerBase
         var quotes = await _quotesService.GetAllQuotes();
         var comments = await _redditService.GetCommentsFromLast24Hours();
         var matches = _matchingService.GetMatchesOfRedditCommentsAndQuotes(comments, quotes);
-        return matches.Select(t => new GetQuoteWithMatchesDto(t.Quote.AsGetQuoteDto(), t.Matches));
+        return matches.Select(q => new GetQuoteWithMatchesDto(q.Quote.AsGetQuoteDto(), q.Matches)).OrderByDescending(q => q.Matches);
     }
 
     [HttpGet]
@@ -35,8 +35,8 @@ public class RedditQuotesController : ControllerBase
     public async Task<IEnumerable<GetQuoteWithMatchesDto>> GetQuotesFromPostPermalink(string permalink)
     {
         var quotes = await _quotesService.GetAllQuotes();
-        var comments = await _redditService.GetCommentsFromPostPermalink("/r/DunderMifflin/comments/12d06js/favourite_oscar_line");
+        var comments = await _redditService.GetCommentsFromPostPermalink(permalink);
         var matches = _matchingService.GetMatchesOfRedditCommentsAndQuotes(comments, quotes);
-        return matches.Select(t => new GetQuoteWithMatchesDto(t.Quote.AsGetQuoteDto(), t.Matches));
+        return matches.Select(q => new GetQuoteWithMatchesDto(q.Quote.AsGetQuoteDto(), q.Matches)).OrderByDescending(q => q.Matches);
     }
 }
