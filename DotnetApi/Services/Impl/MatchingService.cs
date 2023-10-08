@@ -9,7 +9,7 @@ public class MatchingService : IMatchingService
     
     public IEnumerable<QuoteWithMatches> GetMatchesOfRedditCommentsAndQuotes(IEnumerable<string> comments, IEnumerable<Quote> quotes)
     {
-        var commentsWithMoreThanTwoWords = comments.Where(c => c.Split(" ").Length > 2).ToList(); 
+        var commentsWithMoreThanTwoWords = comments.SelectMany(i => i.Split("\n").Where(j => j.Split(" ").Length > 2)).ToList(); 
         var quotesWithMoreThanTwoWords = quotes.Where(q => q.LineText.Split(" ").Length > 2).ToList(); 
         
         var quotesWithMatches = new List<QuoteWithMatches>();
