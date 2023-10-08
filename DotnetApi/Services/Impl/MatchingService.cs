@@ -5,7 +5,6 @@ namespace DotnetApi.Services.Impl;
 
 public class MatchingService : IMatchingService
 {
-    private const int DamerauLevenshteinDistanceThreshold = 5;
     
     public IEnumerable<QuoteWithMatches> GetMatchesOfRedditCommentsAndQuotes(IEnumerable<string> comments, IEnumerable<Quote> quotes)
     {
@@ -20,8 +19,9 @@ public class MatchingService : IMatchingService
 
             foreach (var comment in commentsWithMoreThanTwoWords)
             {
+                var wordCount = comment.Split(" ").Length;
                 var distance = Levenshtein.GetDistance(line, comment, CalculationOptions.DefaultWithThreading);
-                if (distance > DamerauLevenshteinDistanceThreshold)
+                if (distance > wordCount)
                 {
                     continue;
                 }
