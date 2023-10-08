@@ -9,13 +9,16 @@ public class MatchingService : IMatchingService
     
     public IEnumerable<QuoteWithMatches> GetMatchesOfRedditCommentsAndQuotes(IEnumerable<string> comments, IEnumerable<Quote> quotes)
     {
+        var commentsWithMoreThanTwoWords = comments.Where(c => c.Split(" ").Length > 2).ToList(); 
+        var quotesWithMoreThanTwoWords = quotes.Where(q => q.LineText.Split(" ").Length > 2).ToList(); 
+        
         var quotesWithMatches = new List<QuoteWithMatches>();
 
-        foreach (var quote in quotes)
+        foreach (var quote in quotesWithMoreThanTwoWords)
         {
             var line = quote.LineText;
 
-            foreach (var comment in comments)
+            foreach (var comment in commentsWithMoreThanTwoWords)
             {
                 var distance = Levenshtein.GetDistance(line, comment, CalculationOptions.DefaultWithThreading);
                 if (distance > DamerauLevenshteinDistanceThreshold)
