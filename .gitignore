@@ -4,8 +4,8 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 
-/DotnetApi/quotes.db
-/DotnetApi/quotes.db-shm
-/DotnetApi/quotes.db-wal
+/Dunder.Mifflin.Api/quotes.db
+/Dunder.Mifflin.Api/quotes.db-shm
+/Dunder.Mifflin.Api/quotes.db-wal
 /quotes.db
 /.idea
