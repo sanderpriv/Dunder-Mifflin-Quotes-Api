@@ -5,29 +5,29 @@ namespace Dunder.Mifflin.Api.Services.Impl;
 
 public class QuotesService : IQuotesService
 {
-    private readonly IQuotesRepository quotesRepository;
+    private readonly ILinesRepository _linesRepository;
     private readonly Random random = new();
 
-    public QuotesService(IQuotesRepository quotesRepository)
+    public QuotesService(ILinesRepository linesRepository)
     {
-        this.quotesRepository = quotesRepository;
+        this._linesRepository = linesRepository;
     }
 
-    public async Task<IEnumerable<Quote>> GetQuotes(int size)
+    public async Task<IEnumerable<LineDbEntity>> GetQuotes(int size)
     {
-        var quotes = await quotesRepository.GetAll();
+        var quotes = await _linesRepository.GetAllLines();
         var result = quotes.OrderBy(_ => Guid.NewGuid()).Take(size);
         return result;
     }
 
-    public async Task<IEnumerable<Quote>> GetAllQuotes()
+    public async Task<IEnumerable<LineDbEntity>> GetAllQuotes()
     {
-        return await quotesRepository.GetAll();
+        return await _linesRepository.GetAllLines();
     }
 
-    public async Task<Quote?> GetRandomQuote()
+    public async Task<LineDbEntity?> GetRandomQuote()
     {
-        var quotes = (await quotesRepository.GetAll()).ToList();
+        var quotes = (await _linesRepository.GetAllLines()).ToList();
         if (quotes.Count == 0)
             return null;
         

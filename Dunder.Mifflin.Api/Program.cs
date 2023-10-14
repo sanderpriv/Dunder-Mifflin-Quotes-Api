@@ -33,6 +33,7 @@ void AddServices(WebApplicationBuilder builder)
     });
     
     builder.Services.AddSingleton<IQuotesService, QuotesService>();
+    builder.Services.AddSingleton<ILinesRepository, SqLiteLinesRepository>();
     builder.Services.AddSingleton<IQuotesRepository, SqLiteQuotesRepository>();
     
     builder.Services.AddSingleton<IRedditRepository, RedditRepository>();

@@ -2,12 +2,12 @@
 
 public class QuoteWithMatches
 {
-    public Quote Quote;
+    public LineDbEntity LineDbEntity;
     public int Matches;
 
-    public QuoteWithMatches(Quote quote)
+    public QuoteWithMatches(LineDbEntity lineDbEntity)
     {
-        Quote = quote;
+        LineDbEntity = lineDbEntity;
         Matches = 1;
     }
 }

@@ -4,7 +4,7 @@ namespace Dunder.Mifflin.Api.Services;
 
 public interface IQuotesService
 {
-    public Task<IEnumerable<Quote>> GetQuotes(int length);
-    public Task<IEnumerable<Quote>> GetAllQuotes();
-    public Task<Quote?> GetRandomQuote();
+    public Task<IEnumerable<LineDbEntity>> GetQuotes(int length);
+    public Task<IEnumerable<LineDbEntity>> GetAllQuotes();
+    public Task<LineDbEntity?> GetRandomQuote();
 }

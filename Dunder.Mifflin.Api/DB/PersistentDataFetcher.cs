@@ -10,11 +10,11 @@ public static class PersistentDataFetcher
 {
     private const string k_OriginalSetFilename = "the-office-lines.csv";
     
-    public const string k_SqLiteDbSetFilename = "quotes.db";
+    public const string k_SqLiteDbSetFilename = "dunder-mifflin-quotes.db";
 
     private static readonly Type CurrentType = typeof(PersistentDataFetcher);
 
-    public static IEnumerable<Quote> GetQuotesFromCsvFile()
+    public static IEnumerable<LineDbEntity> GetLinesFromCsvFile()
     {
         var stream = GetCsvStream();
         var quotes = ConvertCsvStreamToQuotes(stream);
@@ -32,7 +32,7 @@ public static class PersistentDataFetcher
         return stream;
     }
 
-    private static IEnumerable<Quote> ConvertCsvStreamToQuotes(Stream stream)
+    private static IEnumerable<LineDbEntity> ConvertCsvStreamToQuotes(Stream stream)
     {
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
@@ -40,7 +40,7 @@ public static class PersistentDataFetcher
         };
         using var reader = new StreamReader(stream);
         using var csv = new CsvReader(reader, config);
-        var records = csv.GetRecords<Quote>();
+        var records = csv.GetRecords<LineDbEntity>();
         var quotes = records.ToList();
         return quotes;
     }

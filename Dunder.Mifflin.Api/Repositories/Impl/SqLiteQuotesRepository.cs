@@ -6,59 +6,38 @@ namespace Dunder.Mifflin.Api.Repositories.Impl;
 
 public class SqLiteQuotesRepository : IQuotesRepository
 {
-    
-    public async Task Create(Quote quote)
-    {
-        await using var db = new Database();
-        db.Quotes.Add(quote);
-        await db.SaveChangesAsync();
-    }
-
-    public async Task CreateMany(IEnumerable<Quote> quotes)
-    {
-        await using var db = new Database();
-        db.Quotes.AddRange(quotes);
-        await db.SaveChangesAsync();
-    }
-
-    public async Task<IEnumerable<Quote>> GetAll()
+    public async Task<IEnumerable<QuoteDbEntity>> GetAllQuotes()
     {
         await using var db = new Database();
         return await db.Quotes.ToListAsync();
     }
 
-    public async Task<Quote?> Get(long id)
+    public async Task InsertQuote(string quote, string speaker, LineDbEntity line)
     {
         await using var db = new Database();
-        return await db.Quotes.FindAsync(id);
-    }
 
-    public async Task Update(Quote quote)
-    {
-        await using var db = new Database();
-        db.Quotes.Update(quote);
-        await db.SaveChangesAsync();
-    }
+        var existingQuote = await db.Quotes.FirstOrDefaultAsync(q => q.Quote == quote && q.Speaker == speaker);
 
-    public async Task Delete(long id)
-    {
-        await using var db = new Database();
-        var quote = await Get(id);
-        if (quote is null)
-            return;
+        if (existingQuote != null)
+        {
+            existingQuote.Lines.Add(line);
+            existingQuote.Score++;
+            db.Quotes.Update(existingQuote);
+            await db.SaveChangesAsync();
+        }
+        else
+        {
+            var quoteDbEntity = new QuoteDbEntity
+            {
+                Id = Guid.NewGuid(),
+                Quote = quote,
+                Speaker = speaker,
+                Lines = new List<LineDbEntity> { line },
+                Score = 1,
+            };
 
-        db.Quotes.Remove(quote);
-        await db.SaveChangesAsync();
-    }
-
-    public async Task WarmUp()
-    {
-        await using var db = new Database();
-        var length = db.Quotes.Count();
-        if (length != 0)
-            return;
-
-        var quotes = PersistentDataFetcher.GetQuotesFromCsvFile();
-        await CreateMany(quotes);
+            db.Quotes.Add(quoteDbEntity);
+            await db.SaveChangesAsync();
+        }
     }
 }

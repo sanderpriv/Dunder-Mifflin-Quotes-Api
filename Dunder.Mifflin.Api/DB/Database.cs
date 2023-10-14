@@ -5,7 +5,8 @@ namespace Dunder.Mifflin.Api.DB;
 
 public class Database : DbContext
 {
-    public DbSet<Quote> Quotes { get; set; }
+    public DbSet<LineDbEntity> Lines { get; set; }
+    public DbSet<QuoteDbEntity> Quotes { get; set; }
     private static string DbPath => PersistentDataFetcher.k_SqLiteDbSetFilename;
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)

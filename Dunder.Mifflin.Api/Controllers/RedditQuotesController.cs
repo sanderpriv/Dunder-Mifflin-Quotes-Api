@@ -27,7 +27,7 @@ public class RedditQuotesController : ControllerBase
         var quotes = await _quotesService.GetAllQuotes();
         var comments = await _redditService.GetCommentsFromLast24Hours();
         var matches = _matchingService.GetMatchesOfRedditCommentsAndQuotes(comments, quotes);
-        return matches.Select(q => new GetQuoteWithMatchesDto(q.Quote.AsGetQuoteDto(), q.Matches)).OrderByDescending(q => q.Matches);
+        return matches.Select(q => new GetQuoteWithMatchesDto(q.LineDbEntity.AsGetQuoteDto(), q.Matches)).OrderByDescending(q => q.Matches);
     }
 
     [HttpGet]
@@ -37,6 +37,6 @@ public class RedditQuotesController : ControllerBase
         var quotes = await _quotesService.GetAllQuotes();
         var comments = await _redditService.GetCommentsFromPostPermalink(permalink);
         var matches = _matchingService.GetMatchesOfRedditCommentsAndQuotes(comments, quotes);
-        return matches.Select(q => new GetQuoteWithMatchesDto(q.Quote.AsGetQuoteDto(), q.Matches)).OrderByDescending(q => q.Matches);
+        return matches.Select(q => new GetQuoteWithMatchesDto(q.LineDbEntity.AsGetQuoteDto(), q.Matches)).OrderByDescending(q => q.Matches);
     }
 }

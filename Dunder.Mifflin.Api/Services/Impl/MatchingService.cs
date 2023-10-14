@@ -6,7 +6,7 @@ namespace Dunder.Mifflin.Api.Services.Impl;
 public class MatchingService : IMatchingService
 {
     
-    public IEnumerable<QuoteWithMatches> GetMatchesOfRedditCommentsAndQuotes(IEnumerable<string> comments, IEnumerable<Quote> quotes)
+    public IEnumerable<QuoteWithMatches> GetMatchesOfRedditCommentsAndQuotes(IEnumerable<string> comments, IEnumerable<LineDbEntity> quotes)
     {
         var commentsWithMoreThanTwoWords = comments.SelectMany(i => i.Split("\n").Where(j => j.Split(" ").Length > 2)).ToList(); 
         var quotesWithMoreThanTwoWords = quotes.Where(q => q.LineText.Split(" ").Length > 2).ToList(); 
@@ -26,9 +26,9 @@ public class MatchingService : IMatchingService
                     continue;
                 }
 
-                if (quotesWithMatches.Select(s => s.Quote.Id).Contains(quote.Id))
+                if (quotesWithMatches.Select(s => s.LineDbEntity.Id).Contains(quote.Id))
                 {
-                    quotesWithMatches.First(s => s.Quote.Id == quote.Id).Matches++;
+                    quotesWithMatches.First(s => s.LineDbEntity.Id == quote.Id).Matches++;
                 }
                 else
                 {
