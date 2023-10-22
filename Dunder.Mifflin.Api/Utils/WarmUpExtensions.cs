@@ -6,6 +6,6 @@ public static class WarmUpExtensions
 {
     public static void WarmUp(this IServiceProvider app)
     {
-        app.GetService<ILinesRepository>()?.SaveLinesFromCsvFileToDbIfDbEmpty();
+        app.GetService<IDbRepository>()?.SaveLinesFromCsvFileToDbIfDbEmpty();
     }
 }

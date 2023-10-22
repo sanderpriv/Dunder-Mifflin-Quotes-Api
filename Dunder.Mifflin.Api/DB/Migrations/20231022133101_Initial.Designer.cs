@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dunder.Mifflin.Api.DB.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20231022130137_Initial")]
+    [Migration("20231022133101_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -58,12 +58,14 @@ namespace Dunder.Mifflin.Api.DB.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Quote")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Score")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Speaker")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

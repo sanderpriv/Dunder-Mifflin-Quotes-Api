@@ -5,6 +5,6 @@ namespace Dunder.Mifflin.Api.Services;
 
 public interface IMatchingService
 {
-    public IEnumerable<QuoteWithMatches> GetMatchesOfRedditCommentsAndQuotes
+    public Task<IEnumerable<LineWithMatches>> MatchRedditCommentsWithLines
         (IEnumerable<string> comments, IEnumerable<LineDbEntity> quotes);
 }

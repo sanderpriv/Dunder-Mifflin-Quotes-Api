@@ -13,7 +13,7 @@ void Run()
     AddServices(builder);
     var app = builder.Build();
     AddConfiguration(app);
-    app.Services.GetService<ILinesRepository>()?.SaveLinesFromCsvFileToDbIfDbEmpty();
+    app.Services.GetService<IDbRepository>()?.SaveLinesFromCsvFileToDbIfDbEmpty();
     app.Run();
 }
 
@@ -33,11 +33,11 @@ void AddServices(WebApplicationBuilder builder)
             });
     });
     
-    builder.Services.AddSingleton<IQuotesService, QuotesService>();
-    builder.Services.AddSingleton<ILinesRepository, SqLiteLinesRepository>();
-    builder.Services.AddSingleton<IQuotesRepository, SqLiteQuotesRepository>();
-    
     builder.Services.AddSingleton<IRedditRepository, RedditRepository>();
+    builder.Services.AddSingleton<IDbRepository, SqLiteDbRepository>();
+    
+    builder.Services.AddSingleton<ILinesService, LinesService>();
+    builder.Services.AddSingleton<IQuotesService, QuotesService>();
     builder.Services.AddSingleton<IRedditService, RedditService>();
     builder.Services.AddSingleton<IMatchingService, MatchingService>();
 }

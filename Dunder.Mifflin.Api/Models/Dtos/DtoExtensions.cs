@@ -4,8 +4,13 @@ namespace Dunder.Mifflin.Api.Models.Dtos;
 
 public static class DtoExtensions
 {
-    public static GetQuoteDto AsGetQuoteDto(this LineDbEntity q)
+    public static LineDto AsLineDto(this LineDbEntity l)
     {
-        return new GetQuoteDto(q.Id, q.Season, q.Episode, q.Scene, q.LineText, q.Speaker, q.Deleted);
+        return new LineDto(l.Id, l.Season, l.Episode, l.Scene, l.LineText, l.Speaker, l.Deleted);
+    }
+
+    public static QuoteDto AsQuoteDto(this QuoteDbEntity q)
+    {
+        return new QuoteDto(q.Quote, q.Speaker, q.Score);
     }
 }

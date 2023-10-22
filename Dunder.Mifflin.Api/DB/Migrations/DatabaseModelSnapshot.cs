@@ -55,12 +55,14 @@ namespace Dunder.Mifflin.Api.DB.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Quote")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Score")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Speaker")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

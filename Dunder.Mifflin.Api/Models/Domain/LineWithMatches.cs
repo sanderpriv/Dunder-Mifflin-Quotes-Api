@@ -2,12 +2,12 @@
 
 namespace Dunder.Mifflin.Api.Models.Domain;
 
-public class QuoteWithMatches
+public class LineWithMatches
 {
     public LineDbEntity LineDbEntity;
     public int Matches;
 
-    public QuoteWithMatches(LineDbEntity lineDbEntity)
+    public LineWithMatches(LineDbEntity lineDbEntity)
     {
         LineDbEntity = lineDbEntity;
         Matches = 1;

@@ -34,8 +34,8 @@ namespace Dunder.Mifflin.Api.DB.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Quote = table.Column<string>(type: "TEXT", nullable: true),
-                    Speaker = table.Column<string>(type: "TEXT", nullable: true),
+                    Quote = table.Column<string>(type: "TEXT", nullable: false),
+                    Speaker = table.Column<string>(type: "TEXT", nullable: false),
                     Score = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
