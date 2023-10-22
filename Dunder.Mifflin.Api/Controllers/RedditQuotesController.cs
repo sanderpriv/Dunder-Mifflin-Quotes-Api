@@ -1,4 +1,4 @@
-﻿using Dunder.Mifflin.Api.Dtos;
+﻿using Dunder.Mifflin.Api.Models.Dtos;
 using Dunder.Mifflin.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 

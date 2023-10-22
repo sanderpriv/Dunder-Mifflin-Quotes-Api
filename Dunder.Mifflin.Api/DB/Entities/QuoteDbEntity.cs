@@ -1,4 +1,4 @@
-﻿namespace Dunder.Mifflin.Api.Entities;
+﻿namespace Dunder.Mifflin.Api.DB.Entities;
 
 public class QuoteDbEntity
 {
@@ -6,5 +6,4 @@ public class QuoteDbEntity
     public string? Quote { get; set; }
     public string? Speaker { get; set; }
     public int Score { get; set; }
-    public ICollection<LineDbEntity> Lines { get; set; }
 }

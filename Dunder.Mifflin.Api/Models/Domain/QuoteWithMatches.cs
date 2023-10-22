@@ -1,4 +1,6 @@
-﻿namespace Dunder.Mifflin.Api.Entities;
+﻿using Dunder.Mifflin.Api.DB.Entities;
+
+namespace Dunder.Mifflin.Api.Models.Domain;
 
 public class QuoteWithMatches
 {

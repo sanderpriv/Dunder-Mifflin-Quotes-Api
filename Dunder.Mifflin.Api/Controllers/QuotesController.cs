@@ -1,4 +1,4 @@
-﻿using Dunder.Mifflin.Api.Dtos;
+﻿using Dunder.Mifflin.Api.Models.Dtos;
 using Dunder.Mifflin.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,18 +8,18 @@ namespace Dunder.Mifflin.Api.Controllers;
 public class QuotesController : ControllerBase
 {
 
-    private readonly IQuotesService quotesService;
+    private readonly IQuotesService _quotesService;
 
     public QuotesController(IQuotesService quotesService)
     {
-        this.quotesService = quotesService;
+        _quotesService = quotesService;
     }
 
     [HttpGet]
     [Route("quote")]
     public async Task<ActionResult<GetQuoteDto>> GetRandomQuote()
     {
-        var quote = await quotesService.GetRandomQuote();
+        var quote = await _quotesService.GetRandomQuote();
         if (quote == null)
             return NoContent();
         
@@ -30,6 +30,6 @@ public class QuotesController : ControllerBase
     [Route("quotes")]
     public async Task<IEnumerable<GetQuoteDto>> GetQuotes(int size = 10)
     {
-        return (await quotesService.GetQuotes(size)).AsGetQuoteDtos();
+        return (await _quotesService.GetQuotes(size)).Select(q => q.AsGetQuoteDto());
     }
 }

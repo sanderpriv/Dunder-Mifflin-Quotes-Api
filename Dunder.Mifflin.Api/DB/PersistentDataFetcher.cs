@@ -2,15 +2,15 @@
 using System.Reflection;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Dunder.Mifflin.Api.Entities;
+using Dunder.Mifflin.Api.DB.Entities;
 
 namespace Dunder.Mifflin.Api.DB;
 
 public static class PersistentDataFetcher
 {
-    private const string k_OriginalSetFilename = "the-office-lines.csv";
+    private const string OriginalSetFilename = "the-office-lines.csv";
     
-    public const string k_SqLiteDbSetFilename = "dunder-mifflin-quotes.db";
+    public const string SqLiteDbSetFilename = "dunder-mifflin-quotes.db";
 
     private static readonly Type CurrentType = typeof(PersistentDataFetcher);
 
@@ -26,7 +26,7 @@ public static class PersistentDataFetcher
         var dataNamespace = GetNamespace();
         var assembly = GetLoadedAssembly();
         
-        var path = $"{dataNamespace}.{k_OriginalSetFilename}";
+        var path = $"{dataNamespace}.{OriginalSetFilename}";
         var stream = GetStreamFromAssembly(assembly, path);
 
         return stream;

@@ -1,5 +1,5 @@
 ﻿using Dunder.Mifflin.Api.DB;
-using Dunder.Mifflin.Api.Entities;
+using Dunder.Mifflin.Api.DB.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dunder.Mifflin.Api.Repositories.Impl;

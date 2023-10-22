@@ -13,6 +13,7 @@ void Run()
     AddServices(builder);
     var app = builder.Build();
     AddConfiguration(app);
+    app.Services.GetService<ILinesRepository>()?.SaveLinesFromCsvFileToDbIfDbEmpty();
     app.Run();
 }
 
@@ -54,5 +55,4 @@ void AddConfiguration(WebApplication app)
     app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
-    app.Services.WarmUp();
 }

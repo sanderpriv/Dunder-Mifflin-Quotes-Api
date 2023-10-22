@@ -1,17 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Dunder.Mifflin.Api.Migrations
+namespace Dunder.Mifflin.Api.DB.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Quotes",
+                name: "Lines",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
@@ -25,6 +26,20 @@ namespace Dunder.Mifflin.Api.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Lines", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Quotes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Quote = table.Column<string>(type: "TEXT", nullable: true),
+                    Speaker = table.Column<string>(type: "TEXT", nullable: true),
+                    Score = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Quotes", x => x.Id);
                 });
         }
@@ -32,6 +47,9 @@ namespace Dunder.Mifflin.Api.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Lines");
+
             migrationBuilder.DropTable(
                 name: "Quotes");
         }

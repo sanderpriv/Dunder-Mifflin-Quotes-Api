@@ -1,4 +1,4 @@
-﻿using Dunder.Mifflin.Api.Entities;
+﻿using Dunder.Mifflin.Api.DB.Entities;
 using Dunder.Mifflin.Api.Repositories;
 
 namespace Dunder.Mifflin.Api.Services.Impl;
@@ -6,7 +6,7 @@ namespace Dunder.Mifflin.Api.Services.Impl;
 public class QuotesService : IQuotesService
 {
     private readonly ILinesRepository _linesRepository;
-    private readonly Random random = new();
+    private readonly Random _random = new();
 
     public QuotesService(ILinesRepository linesRepository)
     {
@@ -31,7 +31,7 @@ public class QuotesService : IQuotesService
         if (quotes.Count == 0)
             return null;
         
-        var ran = random.Next(0, quotes.Count);
+        var ran = _random.Next(0, quotes.Count);
         var result = quotes[ran];
         return result;
     }

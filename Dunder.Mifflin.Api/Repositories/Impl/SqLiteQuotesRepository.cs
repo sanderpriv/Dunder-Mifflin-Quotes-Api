@@ -1,5 +1,5 @@
 ﻿using Dunder.Mifflin.Api.DB;
-using Dunder.Mifflin.Api.Entities;
+using Dunder.Mifflin.Api.DB.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dunder.Mifflin.Api.Repositories.Impl;
@@ -20,7 +20,6 @@ public class SqLiteQuotesRepository : IQuotesRepository
 
         if (existingQuote != null)
         {
-            existingQuote.Lines.Add(line);
             existingQuote.Score++;
             db.Quotes.Update(existingQuote);
             await db.SaveChangesAsync();
@@ -32,7 +31,6 @@ public class SqLiteQuotesRepository : IQuotesRepository
                 Id = Guid.NewGuid(),
                 Quote = quote,
                 Speaker = speaker,
-                Lines = new List<LineDbEntity> { line },
                 Score = 1,
             };
 

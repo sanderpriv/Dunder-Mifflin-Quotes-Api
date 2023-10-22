@@ -1,4 +1,5 @@
-﻿using Dunder.Mifflin.Api.Entities;
+﻿using Dunder.Mifflin.Api.DB.Entities;
+using Dunder.Mifflin.Api.Models.Domain;
 
 namespace Dunder.Mifflin.Api.Services;
 
