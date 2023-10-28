@@ -1,8 +1,8 @@
-﻿namespace Dunder.Mifflin.Api.DB.Entities;
+﻿namespace Dunder.Mifflin.Api.Models.Domain;
 
-public class LineDbEntity
+public class LineFromCsv
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
     public int Season { get; set; }
     public int Episode { get; set; }
     public int Scene { get; set; }

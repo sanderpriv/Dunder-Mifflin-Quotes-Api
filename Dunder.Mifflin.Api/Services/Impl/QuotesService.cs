@@ -1,4 +1,4 @@
-﻿using Dunder.Mifflin.Api.DB.Entities;
+﻿using Dunder.Mifflin.Api.Models.DB;
 using Dunder.Mifflin.Api.Repositories;
 
 namespace Dunder.Mifflin.Api.Services.Impl;

@@ -1,8 +1,9 @@
+using Dapper;
 using Dunder.Mifflin.Api.Repositories;
 using Dunder.Mifflin.Api.Repositories.Impl;
 using Dunder.Mifflin.Api.Services;
 using Dunder.Mifflin.Api.Services.Impl;
-using Dunder.Mifflin.Api.Utils;
+using Dunder.Mifflin.Api.Settings;
 using Microsoft.OpenApi.Models;
 
 Run();
@@ -10,20 +11,23 @@ Run();
 void Run()
 {
     var builder = WebApplication.CreateBuilder(args);
-    AddServices(builder);
+    ConfigureServices(builder.Services, builder.Configuration);
     var app = builder.Build();
-    AddConfiguration(app);
+    ConfigureApplication(app);
     app.Services.GetService<IDbRepository>()?.SaveLinesFromCsvFileToDbIfDbEmpty();
     app.Run();
 }
 
-void AddServices(WebApplicationBuilder builder)
+void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
+    DefaultTypeMap.MatchNamesWithUnderscores = true;
+    
+    services.Configure<ConnectionStrings>(configuration.GetSection("ConnectionStrings"));
    
-    builder.Services.AddCors();
-    builder.Services.AddControllers(options => options.SuppressAsyncSuffixInActionNames = false);
-    builder.Services.AddHealthChecks();
-    builder.Services.AddSwaggerGen(c =>
+    services.AddCors();
+    services.AddControllers(options => options.SuppressAsyncSuffixInActionNames = false);
+    services.AddHealthChecks();
+    services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1",
             new OpenApiInfo
@@ -32,17 +36,19 @@ void AddServices(WebApplicationBuilder builder)
                 Version = "v1"
             });
     });
+
+    services.AddSingleton<PostgreSqlRepository>();
     
-    builder.Services.AddSingleton<IRedditRepository, RedditRepository>();
-    builder.Services.AddSingleton<IDbRepository, SqLiteDbRepository>();
+    services.AddSingleton<IRedditRepository, RedditRepository>();
+    services.AddSingleton<IDbRepository, PostgreSqlRepository>();
     
-    builder.Services.AddSingleton<ILinesService, LinesService>();
-    builder.Services.AddSingleton<IQuotesService, QuotesService>();
-    builder.Services.AddSingleton<IRedditService, RedditService>();
-    builder.Services.AddSingleton<IMatchingService, MatchingService>();
+    services.AddSingleton<ILinesService, LinesService>();
+    services.AddSingleton<IQuotesService, QuotesService>();
+    services.AddSingleton<IRedditService, RedditService>();
+    services.AddSingleton<IMatchingService, MatchingService>();
 }
 
-void AddConfiguration(WebApplication app)
+void ConfigureApplication(WebApplication app)
 {
     if (app.Environment.IsDevelopment())
     {

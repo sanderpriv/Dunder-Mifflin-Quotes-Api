@@ -2,23 +2,21 @@
 using System.Reflection;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Dunder.Mifflin.Api.DB.Entities;
+using Dunder.Mifflin.Api.Models.Domain;
 
 namespace Dunder.Mifflin.Api.DB;
 
 public static class PersistentDataFetcher
 {
     private const string OriginalSetFilename = "the-office-lines.csv";
-    
-    public const string SqLiteDbSetFilename = "dunder-mifflin-quotes.db";
 
     private static readonly Type CurrentType = typeof(PersistentDataFetcher);
 
-    public static IEnumerable<LineDbEntity> GetLinesFromCsvFile()
+    public static IEnumerable<LineFromCsv> GetLinesFromCsvFile()
     {
         var stream = GetCsvStream();
-        var quotes = ConvertCsvStreamToQuotes(stream);
-        return quotes;
+        var lines = ConvertCsvStreamToLines(stream);
+        return lines;
     }
     
     private static Stream GetCsvStream()
@@ -32,17 +30,15 @@ public static class PersistentDataFetcher
         return stream;
     }
 
-    private static IEnumerable<LineDbEntity> ConvertCsvStreamToQuotes(Stream stream)
+    private static IEnumerable<LineFromCsv> ConvertCsvStreamToLines(Stream stream)
     {
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
-            PrepareHeaderForMatch = args => args.Header.Replace("_", string.Empty).ToLower(),
+            PrepareHeaderForMatch = args => args.Header.Replace("_", string.Empty).ToLower()
         };
         using var reader = new StreamReader(stream);
         using var csv = new CsvReader(reader, config);
-        var records = csv.GetRecords<LineDbEntity>();
-        var quotes = records.ToList();
-        return quotes;
+        return csv.GetRecords<LineFromCsv>().ToList(); // Need to call ToList 
     }
 
     private static string GetNamespace()

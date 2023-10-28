@@ -1,4 +1,4 @@
-﻿using Dunder.Mifflin.Api.DB.Entities;
+﻿using Dunder.Mifflin.Api.Models.DB;
 using Dunder.Mifflin.Api.Models.Domain;
 using Dunder.Mifflin.Api.Repositories;
 using Quickenshtein;
@@ -14,16 +14,16 @@ public class MatchingService : IMatchingService
         _dbRepository = dbRepository;
     }
 
-    public async Task<IEnumerable<LineWithMatches>> MatchRedditCommentsWithLines(IEnumerable<string> comments, IEnumerable<LineDbEntity> quotes)
+    public async Task<IEnumerable<LineWithMatches>> MatchRedditCommentsWithLines(IEnumerable<string> comments, IEnumerable<LineDbEntity> lines)
     {
         var commentsWithMoreThanTwoWords = comments.SelectMany(i => i.Split("\n").Where(j => j.Split(" ").Length > 2)).ToList(); 
-        var linesWithMoreThanTwoWords = quotes.Where(q => q.LineText.Split(" ").Length > 2).ToList(); 
+        var linesWithMoreThanTwoWords = lines.Where(q => q.LineText.Split(" ").Length > 2).ToList(); 
         
         var linesWithMatches = new List<LineWithMatches>();
 
-        foreach (var quote in linesWithMoreThanTwoWords)
+        foreach (var lineDbEntity in linesWithMoreThanTwoWords)
         {
-            var line = quote.LineText;
+            var line = lineDbEntity.LineText;
 
             foreach (var comment in commentsWithMoreThanTwoWords)
             {
@@ -34,15 +34,15 @@ public class MatchingService : IMatchingService
                     continue;
                 }
 
-                await _dbRepository.InsertQuote(quote.LineText, quote.Speaker);
+                await _dbRepository.InsertQuoteFromLine(lineDbEntity);
                 
-                if (linesWithMatches.Select(s => s.LineDbEntity.Id).Contains(quote.Id))
+                if (linesWithMatches.Select(s => s.LineDbEntity.LineId).Contains(lineDbEntity.LineId))
                 {
-                    linesWithMatches.First(s => s.LineDbEntity.Id == quote.Id).Matches++;
+                    linesWithMatches.First(s => s.LineDbEntity.LineId == lineDbEntity.LineId).Matches++;
                 }
                 else
                 {
-                    linesWithMatches.Add(new LineWithMatches(quote));
+                    linesWithMatches.Add(new LineWithMatches(lineDbEntity));
                 }
             }
         }

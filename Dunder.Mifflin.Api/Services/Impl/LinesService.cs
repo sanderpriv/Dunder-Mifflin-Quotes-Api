@@ -1,4 +1,4 @@
-﻿using Dunder.Mifflin.Api.DB.Entities;
+﻿using Dunder.Mifflin.Api.Models.DB;
 using Dunder.Mifflin.Api.Repositories;
 
 namespace Dunder.Mifflin.Api.Services.Impl;
@@ -16,7 +16,7 @@ public class LinesService : ILinesService
     public async Task<IEnumerable<LineDbEntity>> GetLines(int size)
     {
         var lines = await _dbRepository.GetAllLines();
-        var result = lines.OrderBy(_ => Guid.NewGuid()).Take(size);
+        var result = lines.OrderByDescending(l => l.LineId).Take(size);
         return result;
     }
 

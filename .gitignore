@@ -4,7 +4,3 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 /.idea
-
-/Dunder.Mifflin.Api/dunder-mifflin-quotes.db
-/Dunder.Mifflin.Api/dunder-mifflin-quotes.db-shm
-/Dunder.Mifflin.Api/dunder-mifflin-quotes.db-wal
