@@ -1,10 +1,12 @@
 using Dapper;
+using Dunder.Mifflin.Api.Jobs;
 using Dunder.Mifflin.Api.Repositories;
 using Dunder.Mifflin.Api.Repositories.Impl;
 using Dunder.Mifflin.Api.Services;
 using Dunder.Mifflin.Api.Services.Impl;
 using Dunder.Mifflin.Api.Settings;
 using Microsoft.OpenApi.Models;
+using Quartz;
 
 Run();
 
@@ -46,6 +48,18 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     services.AddSingleton<IQuotesService, QuotesService>();
     services.AddSingleton<IRedditService, RedditService>();
     services.AddSingleton<IMatchingService, MatchingService>();
+
+    services.AddQuartz(q =>
+    {
+        var jobKey = new JobKey("MatchRedditCommentsWithQuotesJob");
+        q.AddJob<MatchRedditCommentsWithQuotesJob>(opts => opts.WithIdentity(jobKey));
+        q.AddTrigger(opts =>
+            opts.ForJob(jobKey)
+                .WithIdentity("MatchRedditCommentsWithQuotesJob-trigger")
+                .WithCronSchedule("0 0 * * *")
+        );
+    });
+    services.AddQuartzHostedService();
 }
 
 void ConfigureApplication(WebApplication app)
