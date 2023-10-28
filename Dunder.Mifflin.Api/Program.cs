@@ -56,7 +56,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
         q.AddTrigger(opts =>
             opts.ForJob(jobKey)
                 .WithIdentity("MatchRedditCommentsWithQuotesJob-trigger")
-                .WithCronSchedule("0 0 * * *")
+                .WithCronSchedule("0 0 * * * ?")
         );
     });
     services.AddQuartzHostedService();
