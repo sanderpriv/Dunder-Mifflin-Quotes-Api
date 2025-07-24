@@ -1,7 +1,7 @@
 ﻿# The Office Quotes API
 
 ## About
-* This application is a .NET 7 API that can return a single or a set of random quotes from the American TV-series "The Office".
+* This application is a .NET 8 API that can return a single or a set of random quotes from the American TV-series "The Office".
 * Built as an ASP.NET Core application with a PostgreSql database 
 
 ## Endpoints
